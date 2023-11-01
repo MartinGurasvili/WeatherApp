@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather - Health Advice Group</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" 
+      type="image/png" 
+      href="img/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <style>img[alt="www.000webhost.com"] {display:none;}</style>
+    <meta name="theme-color" 
+      content="#2B4574" 
+      media="(prefers-color-scheme: light)">
+<meta name="theme-color" 
+      content="#2B4574" 
+      media="(prefers-color-scheme: dark)">
+  </head>
+  <body onload="checkcookies()">
+
+    <div class="overlay1" id="over" style="background: rgb(58,155,180);background: linear-gradient(90deg, rgba(58,155,180,0.5) 0%, rgba(253,29,29,0.5) 51%, rgba(252,176,69,0.5) 100%);"></div>
+	<header>
+        <br>
+        <div class="row">
+            <div class="col "><center><a href="menu.html"><div class="navbuttons"><img src="img/gear.png" style="height:30px;"></div></a></center></div>
+            <div class="col-s "><center><h1  class="navtitle">Health Advice Group<h1></center></div>
+                <div class="col "><center><a href="index.html"><div class="navbuttons"><img src="img/mag.png" style="height:30px;"></div></a></center></div>
+            </div>
+        </header>
+        <br><br>
+        
+        <center><div class="con" >
+        <div class="row">
+          
+          <div class="col " id="fh1">
+            <img src="img/sun-cloud.png" class="mainweather" id="mainweather" alt="">
+          </div>
+          <div class="col " >
+            <div class="fh2">
+            <center>
+            <div class="city" id="city">Oxford</div>
+            <div class="temp" id="temp">12°C</div>
+            <div class="condition" id="condition">Sun Cloudy</div>
+            <button onclick="t2speach()" style="border: none;background-color: rgba(1, 1, 1, 0.0);"><div class="t2s"><svg fill="#ffffff" style="margin-top: -5px;" width="8%" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 58.752 58.752" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M52.524,23.925L12.507,0.824c-1.907-1.1-4.376-1.097-6.276,0C4.293,1.94,3.088,4.025,3.088,6.264v46.205 c0,2.24,1.204,4.325,3.131,5.435c0.953,0.555,2.042,0.848,3.149,0.848c1.104,0,2.192-0.292,3.141-0.843l40.017-23.103 c1.936-1.119,3.138-3.203,3.138-5.439C55.663,27.134,54.462,25.05,52.524,23.925z M49.524,29.612L9.504,52.716 c-0.082,0.047-0.18,0.052-0.279-0.005c-0.084-0.049-0.137-0.142-0.137-0.242V6.263c0-0.1,0.052-0.192,0.14-0.243 c0.042-0.025,0.09-0.038,0.139-0.038c0.051,0,0.099,0.013,0.142,0.038l40.01,23.098c0.089,0.052,0.145,0.147,0.145,0.249 C49.663,29.47,49.611,29.561,49.524,29.612z"></path> </g> </g></svg>   Play</div></button>
+            </center>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col ">
+          <div class="suggestions" >
+            <div  class="suggestionstxt">Suggestions</div>
+            
+            
+            <div class="col ">
+              <div class="horizontal-scroll-wrapper" id="sugg">
+                
+          
+              </div>
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+        <br>
+        
+
+        <div class="row">
+          <div class="col ">
+          <div class="today" >
+            <div  class="todaytxt">Today</div>
+            <hr style="border: 1px solid rgb(255, 255, 255,0.5);margin-top :5px;">
+            <div class="col ">
+              <div class="centercon">
+              <div class="col ">
+                <div id="time0">Now</div>
+                <img id="img0" src="img/cloudy.png" style="width:100px">
+                <div id="temp0">12°C</div>
+              </div>
+              <div class="col ">
+                <div id="time1">10AM</div>
+                <img id="img1" src="img/cloudy.png" style="width:100px">
+                <div id="temp1">12°C</div>
+              </div>
+              <div class="col ">
+                <div id="time2">10AM</div>
+                <img id="img2" src="img/cloudy.png" style="width:100px">
+                <div id="temp2">12°C</div>
+              </div>
+              <div class="col ">
+                <div id="time3">10AM</div>
+                <img id="img3" src="img/cloudy.png" style="width:100px">
+                <div id="temp3">12°C</div>
+              </div>
+              <div class="col ">
+                <div id="time4">10AM</div>
+                <img id="img4" src="img/cloudy.png" style="width:100px">
+                <div id="temp4">12°C</div>
+              </div><div class="col ">
+                <div id="time5">10AM</div>
+                <img id="img5" src="img/cloudy.png" style="width:100px">
+                <div id="temp5">12°C</div>
+              </div><div class="col ">
+                <div id="time6">10AM</div>
+                <img id="img6" src="img/cloudy.png" style="width:100px">
+                <div id="temp6">12°C</div>
+              </div>
+              </div>
+            </div>
+            <hr style="border: 1px solid rgb(255, 255, 255,0.5);margin-top :5px;">
+            <div class="row">
+            <div class="col"  >
+            <div>Air Quality <div style="color: yellow;" id="aq">Poor</div></div>
+            
+          </div>
+          <div class="col" >
+            
+            <div>Wind Speed <div id="ws">W 10 km/h</div></div>
+          </div>
+          <div class="col" >
+            
+            <div>Humidity <div id="hu">W 10 km/h</div></div>
+          </div>
+        </div>
+        
+        <hr style="border: 1px solid rgb(255, 255, 255,0.5);">
+        <div class="row">
+          <div class="col"  >
+          <div>Sunrise <div  id="sr">Poor</div></div>
+          
+        </div>
+        <div class="col" >
+          
+          <div>Sunset <div id="ss">W 10 km/h</div></div>
+        </div>
+        
+      </div>
+          </div>
+
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col ">
+        <div class="suggestions" >
+          <div  class="suggestionstxt">Health & Activities</div>
+          
+          
+          <div class="col ">
+            <div class="horizontal-scroll-wrapper" id="handa">
+              
+        
+            </div>
+            
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col ">
+      <div class="today" >
+        <div  class="todaytxt">7 Day Forcast</div>
+        <hr style="border: 1px solid rgb(255, 255, 255,0.5);margin-top :5px;">
+        <div class="col ">
+          <div class="centercon">
+          <div class="col ">
+            <div id="day0">Mon</div>
+            <img id="dayimg0" src="img/cloudy.png" style="width:100px">
+            <div id="daytemp0">12°C</div>
+          </div>
+          <div class="col ">
+            <div id="day1">Mon</div>
+            <img id="dayimg1" src="img/cloudy.png" style="width:100px">
+            <div id="daytemp1">12°C</div>
+          </div>
+          <div class="col ">
+            <div id="day2">Mon</div>
+            <img id="dayimg2" src="img/cloudy.png" style="width:100px">
+            <div id="daytemp2">12°C</div>
+          </div>
+          <div class="col ">
+            <div id="day3">Mon</div>
+            <img id="dayimg3" src="img/cloudy.png" style="width:100px">
+            <div id="daytemp3">12°C</div>
+          </div>
+          <div class="col ">
+            <div id="day4">Mon</div>
+            <img id="dayimg4" src="img/cloudy.png" style="width:100px">
+            <div id="daytemp4">12°C</div>
+          </div><div class="col ">
+            <div id="day5">Mon</div>
+            <img id="dayimg5" src="img/cloudy.png" style="width:100px">
+            <div id="daytemp5">12°C</div>
+          </div><div class="col ">
+            <div id="day6">Mon</div>
+            <img id="dayimg6" src="img/cloudy.png" style="width:100px">
+            <div id="daytemp6">12°C</div>
+          </div>
+          </div>
+        </div>
+        </div>
+        <br>
+        
+            
+      </center>
+        
+    
+  </body>
+
+  <script>
+  
+
+  
+
+
+  function getCookie(cname) {
+          let name = cname + "=";
+          let decodedCookie = decodeURIComponent(document.cookie);
+          let ca = decodedCookie.split(';');
+          for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        }
+        function mainWeatherIcon(code){
+          if (code =="01n" || code =="01d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right, rgba(241, 39, 17, 0.6) ,  rgba(245, 175, 25, 0.6));"
+            return "img/sun.png"
+            
+          }
+          if (code =="02n" || code =="02d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right,  rgba(245, 175, 25, 0.7),  rgba(255, 255, 255, 0.5));"
+            return "img/sun-cloud.png"
+          }
+          if (code =="03n" || code =="03d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right,  rgba(245, 175, 25, 0.7),  rgba(255, 255, 255, 0.5));"
+            return "img/sun-cloud.png"
+            
+          }
+          if (code =="04n" || code =="04d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right, rgba(189, 195, 199, 0.6) ,  rgba(44, 62, 80, 0.6));"
+            return "img/cloudy.png"
+          }
+          if (code =="09n" || code =="09d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right, rgba(41, 128, 185, 0.6) ,  rgba(109, 213, 250, 0.6),  rgba(255, 255, 255, 0.6));"
+            return "img/rain3.png"
+            
+          }
+          if (code =="10n" || code =="10d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right, rgba(41, 128, 185, 0.6) ,  rgba(109, 213, 250, 0.6),  rgba(255, 255, 255, 0.6));"
+            return "img/rain2.png"
+            
+          }
+          if (code =="11n" || code =="11d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right, rgba(189, 195, 199, 0.6) ,  rgba(44, 62, 80, 0.6));"
+            return "img/thunderstorm.png"
+          }
+          
+          if (code =="13n" || code =="13d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right,   rgba(109, 213, 250, 0.7),  rgba(255, 255, 255, 0.6));"
+            
+            return "img/snow-cloud.png"
+          }
+          if (code =="50n" || code =="50d" ){
+            document.getElementById("over").style= "background: linear-gradient(to right, rgba(189, 195, 199, 0.6) ,  rgba(44, 62, 80, 0.6));"
+            return "img/cloudy.png"
+          }
+          
+          
+        }
+        function getWeatherIcon(code){
+          if (code =="01n" || code =="01d" ){
+            return "img/sun.png"
+            
+          }
+          if (code =="02n" || code =="02d" ){
+            return "img/sun-cloud.png"
+          }
+          if (code =="03n" || code =="03d" ){
+            return "img/sun-cloud.png"
+            
+          }
+          if (code =="04n" || code =="04d" ){
+            return "img/cloudy.png"
+          }
+          if (code =="09n" || code =="09d" ){
+            return "img/rain3.png"
+            
+          }
+          if (code =="10n" || code =="10d" ){
+           return "img/rain2.png"
+            
+          }
+          if (code =="11n" || code =="11d" ){
+            return "img/thunderstorm.png"
+          }
+          
+          if (code =="13n" || code =="13d" ){
+            return "img/snow-cloud.png"
+          }
+          if (code =="50n" || code =="50d" ){
+            return "img/cloudy.png"
+          }
+          
+          
+        }
+        function getAQI(code){
+          if (code ==1  ){
+            document.getElementById("aq").innerHTML = "Good"
+            document.getElementById("aq").style.color = "#2dc937"
+          }
+          if (code ==2  ){
+            document.getElementById("aq").innerHTML = "Fair"
+            document.getElementById("aq").style.color = "#99c140"
+          }
+          if (code ==3  ){
+            document.getElementById("aq").innerHTML = "Moderate"
+            document.getElementById("aq").style.color = "#e7b416"
+          }
+          if (code ==4  ){
+            document.getElementById("aq").innerHTML = "Poor"
+            document.getElementById("aq").style.color = "#db7b2b"
+          }
+          if (code ==5  ){
+            document.getElementById("aq").innerHTML = "Very Poor"
+            document.getElementById("aq").style.color = "#cc3232"
+          }
+          
+          
+          
+        }
+  function checkcookies() {
+          if (getCookie("data") === ""){
+            location.href = '/index.html'
+           }
+           console.log(getCookie("contrast"))
+           console.log(JSON.parse(decodeURIComponent(getCookie("aqi"))))
+           console.log(JSON.parse(decodeURIComponent(getCookie("data"))))
+           
+           console.log(JSON.parse(decodeURIComponent(getCookie("daily"))))
+           console.log(JSON.parse(decodeURIComponent(getCookie("hourly"))))
+           const data =(JSON.parse(decodeURIComponent(getCookie("data"))))
+           const daily =(JSON.parse(decodeURIComponent(getCookie("daily"))))
+           const hourly =(JSON.parse(decodeURIComponent(getCookie("hourly"))))
+           if (getCookie("name") == ""){
+           document.getElementById("city").innerHTML = data.name
+           }
+           else{
+            document.getElementById("city").innerHTML = getCookie("name")
+           }
+           if (getCookie("temp") == ""){
+            document.cookie = "temp =°C"
+           }
+           if (getCookie("temp") == "°C"){
+            document.getElementById("temp").innerHTML = Math.round(data.main.temp -273.15)+"°C"
+           }
+           if (getCookie("temp") == "°F"){
+            document.getElementById("temp").innerHTML = Math.round(((data.main.temp -273.15)*9/5)+32)+"°F"
+           }
+           
+
+
+           document.getElementById("condition").innerHTML = data.weather[0].main
+           document.getElementById("mainweather").src = mainWeatherIcon( data.weather[0].icon)
+
+           var dayOfWeek = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"]
+
+           for (let i = 0; i < 7; i++) {
+            if(document.getElementById(`time${i}`).innerHTML != "Now"){
+              document.getElementById(`time${i}`).innerHTML = new Date((hourly[i][2])* 1000).getHours() + ":00"
+            }
+            
+            document.getElementById(`day${i}`).innerHTML = dayOfWeek[new Date((daily[i+1][2])* 1000).getUTCDay()]
+            document.getElementById(`img${i}`).src = getWeatherIcon( hourly[i][1][0].icon)
+            document.getElementById(`dayimg${i}`).src = getWeatherIcon( daily[i+1][1][0].icon)
+            
+            if (getCookie("temp") == "°C"){
+            document.getElementById(`temp${i}`).innerHTML = Math.round(hourly[i][0] -273.15)+"°C"
+            document.getElementById(`daytemp${i}`).innerHTML = Math.round(daily[i+1][0].eve -273.15)+"°C"
+           }
+           if (getCookie("temp") == "°F"){
+            document.getElementById(`temp${i}`).innerHTML = Math.round(((hourly[i][0] -273.15)*9/5)+32)+"°F"
+            document.getElementById(`daytemp${i}`).innerHTML = Math.round(((daily[i+1][0].eve -273.15)*9/5)+32)+"°F" 
+          }
+        
+                  }
+
+           document.getElementById("ws").innerHTML = data.wind.speed+"M/S"
+           document.getElementById("hu").innerHTML = data.main.humidity+"%"
+           document.getElementById("sr").innerHTML = new Date((data.sys.sunrise)* 1000).getHours() + ":"+ (new Date((data.sys.sunrise)* 1000).getMinutes()<10?'0':'')+new Date((data.sys.sunrise)* 1000).getMinutes()
+           document.getElementById("ss").innerHTML = new Date((data.sys.sunset)* 1000).getHours() + ":"+(new Date((data.sys.sunset)* 1000).getMinutes()<10?'0':'')+new Date((data.sys.sunset)* 1000).getMinutes()
+           
+           getAQI((JSON.parse(decodeURIComponent(getCookie("aqi")))).list[0].main.aqi)
+           
+           
+           
+           if (getCookie("contrast") == "1"){
+            document.body.style.backgroundImage = "url('img_tree.png')";
+            document.body.style.background= "rgb(0, 0, 0)";
+            document.getElementById("over").remove();
+
+            
+           }
+           
+           suggestions(hourly,data)
+         }
+
+
+         function suggestions(hourly,data) {
+          if (data.weather[0].icon =="10n" || data.weather[0].icon =="10d" ){
+            document.getElementById("sugg").innerHTML +="<div class='poorsug'>Umbrella☂️</div>"
+            document.getElementById("sugg").innerHTML +="<div class='poorsug'>Waterproof👟</div>"
+            
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Outdoor🦟<br>LOW</div>"
+            
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Running🏃<br>POOR</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Fishing🎣<br>POOR</div>"
+            document.getElementById("handa").innerHTML +="<div class='midsug'>Driving🚗<br>FAIR</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Cycling🚴<br>POOR</div>"
+            
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Stargazing ⭐<br>POOR</div>"
+            if (data.wind.speed >6){
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>WindProof 🧥</div>"
+            
+            }
+            if (data.main.humidity >80){
+                document.getElementById("sugg").innerHTML +="<div class='midsug'>Mold🌲</div>"
+            }
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Indoors🏡</div>"
+            if (Math.round(data.main.temp -273.15) >=20){
+              document.getElementById("sugg").innerHTML +="<div class='midsug'>Summer🩳</div>"
+            }
+            if (Math.round(data.main.temp -273.15) >=10 && Math.round(data.main.temp -273.15)<20){
+              document.getElementById("sugg").innerHTML +="<div class='goodsug'>Spring👕</div>"}
+              if (Math.round(data.main.temp -273.15) >=0 && Math.round(data.main.temp -273.15)<10){
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Autum🧥</div>"}
+            if (Math.round(data.main.temp -273.15) <0){
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>Winter🧣</div>"}
+
+          }
+          else if (data.weather[0].icon =="13n" || data.weather[0].icon =="13d" ){
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>Winter🧣</div>"
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>Gloves🧤</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Driving🚗<br>POOR</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Outdoor🦟<br>LOW</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Snowman⛄<br>GOOD</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>SnowSport⛷️<br>GOOD</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Running🏃<br>POOR</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Fishing🎣<br>POOR</div>"
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Indoors🏡</div>"
+            document.getElementById("handa").innerHTML +="<div class='midsug'>Stargazing ⭐<br>FAIR</div>"
+          }
+          else{
+            if (data.wind.speed >6){
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>WindProof 🧥</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Outdoor🦟<br>LOW</div>"
+            }
+            else{
+              if (data.main.humidity >70){
+                document.getElementById("handa").innerHTML +="<div class='midsug'>Outdoor🦟<br>FAIR</div>"
+            }}
+          if ((JSON.parse(decodeURIComponent(getCookie("aqi")))).list[0].main.aqi ==1 ||(JSON.parse(decodeURIComponent(getCookie("aqi")))).list[0].main.aqi == 2){
+            
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Hiking🥾<br>GOOD</div>"
+            if (Math.round(data.main.temp -273.15) >5 && Math.round(data.main.temp -273.15)<20){
+              document.getElementById("handa").innerHTML +="<div class='goodsug'>Running🏃<br>GOOD</div>"
+              if (data.wind.speed >6){
+              document.getElementById("handa").innerHTML +="<div class='midsug'>Cycling🚴<br>FAIR</div>"
+              }
+              else{
+                document.getElementById("handa").innerHTML +="<div class='goodsug'>Cycling🚴<br>GOOD</div>"
+              }
+            }
+            else{
+              document.getElementById("handa").innerHTML +="<div class='poorsug'>Running🏃<br>POOR</div>"
+              document.getElementById("handa").innerHTML +="<div class='midsug'>Cycling🚴<br>FAIR</div>"
+            }
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Walking🚶🏻 <br>GOOD</div>"
+          }
+          else{
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Walking🚶🏻 <br>POOR</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Running🏃<br>POOR</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Cycling🚴<br>POOR</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Hiking🥾<br>POOR</div>"
+          }
+          
+          
+          if (Math.round(data.main.temp -273.15) >=20){
+            
+            if (data.weather[0].icon =="01n" || data.weather[0].icon =="01d"|| data.weather[0].icon =="02d"|| data.weather[0].icon =="02n"|| data.weather[0].icon =="03d"|| data.weather[0].icon =="03n" )
+              {
+                document.getElementById("handa").innerHTML +="<div class='goodsug'>Beach 🏖️<br>GOOD</div>"
+                document.getElementById("sugg").innerHTML +="<div class='poorsug'>Sunscream☀️</div>"
+                document.getElementById("sugg").innerHTML +="<div class='midsug'>Sunglasses👓</div>"
+              }
+            else{
+              document.getElementById("handa").innerHTML +="<div class='midsug'>Beach 🏖️<br>FAIR</div>"
+          
+              
+            }
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>Summer🩳</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Fishing🎣<br>GOOD</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Driving🚗<br>GOOD</div>"
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Outdoors🏡</div>"
+            if (data.main.humidity >80){
+                document.getElementById("sugg").innerHTML +="<div class='midsug'>Allergies💨</div>"
+            }
+            
+            
+          }
+          if (Math.round(data.main.temp -273.15) >=10 && Math.round(data.main.temp -273.15)<20){
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Spring👕</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Fishing🎣<br>GOOD</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Driving🚗<br>GOOD</div>"
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Outdoors🏡</div>"
+            
+          }
+          if (Math.round(data.main.temp -273.15) >=0 && Math.round(data.main.temp -273.15)<10){
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Autum🧥</div>"
+            document.getElementById("handa").innerHTML +="<div class='midsug'>Fishing🎣<br>FAIR</div>"
+            document.getElementById("handa").innerHTML +="<div class='goodsug'>Driving🚗<br>GOOD</div>"
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>Indoors🏡</div>"
+            
+          }
+          if (Math.round(data.main.temp -273.15) <0){
+            document.getElementById("sugg").innerHTML +="<div class='midsug'>Winter🧣</div>"
+            document.getElementById("sugg").innerHTML +="<div class='goodsug'>Indoors🏡</div>"
+            document.getElementById("handa").innerHTML +="<div class='midsug'>Driving🚗<br>FAIR</div>"
+            document.getElementById("handa").innerHTML +="<div class='poorsug'>Fishing🎣<br>POOR</div>"
+            
+          }
+          }
+          if (data.weather[0].icon =="1n" || data.weather[0].icon =="1d"|| data.weather[0].icon =="2d"|| data.weather[0].icon =="2n"|| data.weather[0].icon =="3d"|| data.weather[0].icon =="3n" )
+              {
+                document.getElementById("handa").innerHTML +="<div class='goodsug'>Stargazing ⭐<br>GOOD</div>"
+              }
+          
+          
+          
+          
+              
+         }
+         
+         
+         
+         
+
+  function t2speach() {
+  if ('speechSynthesis' in window) {
+    var msg = new SpeechSynthesisUtterance();
+    msg.text = "The weather today is amazing";
+    window.speechSynthesis.speak(msg);
+
+    
+  }else{
+    console.log(' Speech Synthesis Not Supported 😞'); 
+  }
+}
+
+
+    </script>
+</html>

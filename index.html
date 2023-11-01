@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather - Health Advice Group</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" 
+      type="image/png" 
+      href="img/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <style>img[alt="www.000webhost.com"] {display:none;}</style>
+    <meta name="theme-color" 
+      content="#2B4574" 
+      media="(prefers-color-scheme: light)">
+<meta name="theme-color" 
+      content="#2B4574" 
+      media="(prefers-color-scheme: dark)">
+  </head>
+  <body onload="checkcookies()">
+
+    <div class="overlay" id="over"></div>
+	<header>
+        <br>
+        <div class="row">
+            <div class="col "><center><a href="menu.html"><div class="navbuttons"><img src="img/gear.png" style="height:30px;"></div></a></center></div>
+            <div class="col-s "><center><h1  class="navtitle">Health Advice Group<h1></center></div>
+                <div class="col "><center><a href="index.html"><div class="navbuttons"><img src="img/mag.png" style="height:30px;"></div></a></center></div>
+            </div>
+        </header>
+        <div class="spacer1">
+        </div>
+            <img src="img/icon.png" class="indicon">
+            <div >
+                <div class="col "><center><h1 class="title1">Weather <h1></center></div>
+                </div>
+            <div >
+            <div class="col "><center><h1 class="title2" >Health Advice Group<h1></center></div>
+                
+            </div>
+            
+            <div class="spacer1">
+            </div>
+           <div >
+        
+                <div class="search">
+                   <input type="text" class="searchTerm" placeholder="Search Location" id="searchh">
+                   <button type="submit" class="searchButton"  id="sbutton" onclick="searchloc(document.getElementById('searchh').value)">
+                     <img src="img/mag.png" style="width:80%" >
+                  </button>
+                </div>
+            
+             </div>
+            <center> <div id="locations">
+              
+              
+              
+             </div></center>
+             <br>
+       
+             <div >
+                <div class="col ">
+                <div class="locbutton" onclick="getloc()">Search With Current Location</div>
+            </div>
+             </div>
+             <div class="spacer2">
+              
+            </div>
+            
+             <div >
+                <div class="col ">
+                <center><p class="desk">We are a charity called Health Advice Group<br> We offer specialist information and support for enviromental health issues.</h4></center>
+            </div>
+             </div>
+             
+       <script>
+         function getCookie(cname) {
+          let name = cname + "=";
+          let decodedCookie = decodeURIComponent(document.cookie);
+          let ca = decodedCookie.split(';');
+          for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        }
+        
+  function checkcookies() {
+           console.log(getCookie("contrast"))
+           if (getCookie("contrast") == "1"){
+            document.body.style.backgroundImage = "url('img_tree.png')";
+            document.body.style.background= "rgb(0, 0, 0)";
+            document.getElementById("over").classList.remove('overlay');
+            document.getElementById("switch1o").classList.remove('btn-default');
+            document.getElementById("switch1o").classList.add('btn-primary');
+            document.getElementById("switch1of").classList.remove('btn-primary');
+            document.getElementById("switch1of").classList.add('btn-default');
+            
+           }
+           
+            
+         }
+         </script>
+
+         <script>
+          var input = document.getElementById("searchh");
+
+      
+          input.addEventListener("keypress", function(event) {
+          
+            if (event.key === "Enter") {
+      
+              event.preventDefault();
+  
+              document.getElementById("sbutton").click();
+            }
+          });
+
+          const apiKey = 'bb8924c3fd2066a13a071438456643d3';
+      
+            function getloc(){
+              if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+              } else {
+                console.log("Geolocation is not supported by this browser.");
+                document.cookie = "error=Geolocation is not supported by this browser."
+                location.href = '/error.html'
+              }
+
+              function onSuccess(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                var url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+                fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                  document.cookie = "data="+encodeURIComponent(JSON.stringify(data));
+                  document.cookie='name= '
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  document.cookie = "error="+error
+                location.href = '/error.html'
+                });
+                url = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,alerts&appid=${apiKey}`;
+                fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data); // This will print the weather data
+                  
+                  data.hourly.length = 8;
+                  for (let i = 0; i < 7+1; i++) {
+                    data.hourly[i] = [(data.hourly[i].temp),(data.hourly[i].weather),(data.hourly[i].dt)];
+                    data.daily[i] = [(data.daily[i].temp),(data.daily[i].weather),(data.daily[i].dt)];
+                  }
+                  
+                  
+                  document.cookie = "daily="+encodeURIComponent(JSON.stringify(data.daily));
+                  document.cookie = "hourly="+encodeURIComponent(JSON.stringify(data.hourly));
+                  const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+                  fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                    document.cookie = "aqi="+encodeURIComponent(JSON.stringify(data));
+                  location.href = '/main.html'
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  document.cookie = "error="+error
+                location.href = '/error.html'
+                });
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  document.cookie = "error="+error
+                location.href = '/error.html'
+                });
+              
+              }
+
+              function onError(error) {
+                console.error(`Error occurred: ${error.message}`);
+                document.cookie = "error="+`Error occurred: ${error.message}`
+                location.href = '/error.html'
+              }
+            }
+
+
+            function searchloc(search){
+             
+              document.getElementById('searchh').value = ""
+              document.getElementById('searchh').placeholder = "Select Location"
+              document.getElementById("locations").innerHTML = ""
+                const url = `https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=4&appid=${apiKey}`;
+                fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data); 
+                  // document.cookie = "data="+encodeURIComponent(JSON.stringify(data));
+                  
+                  for (let i = 0; i < 3; i++) {
+                    var namee = data[i].name
+                    var statee = data[i].state
+                    if (statee == undefined || statee == "undefined"){
+                      statee = ""
+                    }
+                  document.getElementById("locations").innerHTML += `<button class="locsug" onclick="document.cookie='name='+this.innerHTML;getweth(${data[i].lat},${data[i].lon})">${namee} ${statee}</button>`
+                  
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  
+                  
+                });
+              
+              }
+            
+
+              function getweth(lat,long){
+                var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`;
+                fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                  document.cookie = "data="+encodeURIComponent(JSON.stringify(data));
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  document.cookie = "error="+error
+                location.href = '/error.html'
+                });
+                url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${apiKey}`;
+                fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data); // This will print the weather data
+                  data.hourly.length = 8;
+                  for (let i = 0; i < 8; i++) {
+                    data.hourly[i] = [(data.hourly[i].temp),(data.hourly[i].weather),(data.hourly[i].dt)];
+                    data.daily[i] = [(data.daily[i].temp),(data.daily[i].weather),(data.daily[i].dt)];
+                  }
+                  
+                  
+                  document.cookie = "daily="+encodeURIComponent(JSON.stringify(data.daily));
+                  document.cookie = "hourly="+encodeURIComponent(JSON.stringify(data.hourly));
+                  const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${long}&appid=${apiKey}`;
+                  fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                    document.cookie = "aqi="+encodeURIComponent(JSON.stringify(data));
+                  location.href = '/main.html'
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  document.cookie = "error="+error
+                location.href = '/error.html'
+                });
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  document.cookie = "error="+error
+                location.href = '/error.html'
+                });
+              
+              }
+
+              
+            
+
+  
+            
+          </script>
+    
+  </body>
+</html>
